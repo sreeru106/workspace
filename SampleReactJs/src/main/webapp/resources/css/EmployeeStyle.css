@@ -1,0 +1,16 @@
+.btn {
+    background-color:  #E6E6FA;
+    border: 1.0;
+    color: black;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 2px 2px;
+    cursor: pointer;
+}
+.empTable{
+	border: 2px solid black;
+	border-collapse : collapse;
+}
