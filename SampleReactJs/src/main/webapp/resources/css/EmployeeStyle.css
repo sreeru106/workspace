@@ -1,5 +1,29 @@
-.btn {
-    background-color:  #E6E6FA;
+#saveBtn {
+    background-color:  peachpuff;
+    border: 1.0;
+    color: black;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 2px 2px;
+    cursor: pointer;
+}
+#editBtn {
+    background-color:  bisque;
+    border: 1.0;
+    color: black;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 2px 2px;
+    cursor: pointer;
+}
+#deleteBtn {
+    background-color: darkseagreen;
     border: 1.0;
     color: black;
     padding: 10px 10px;
@@ -14,3 +38,13 @@
 	border: 2px solid black;
 	border-collapse : collapse;
 }
+h1{
+	color: purple;
+}
+table tbody tr:nth-child(odd) {
+	background-color: #f2f2f2;
+}
+
+table tbody tr:nth-child(even) {
+	background-color: #ffffff;
+} 

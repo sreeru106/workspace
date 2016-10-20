@@ -61,7 +61,7 @@
 									</tr>
 									<tr>
 											<td colspan="2">
-												<input type="submit" value="Submit" id="save" class="btn" />
+												<input type="submit" value="Submit" id="saveBtn" class="save" />
 											</td>
 									</tr>
 								</table>  
@@ -136,8 +136,8 @@
 								<input type ="text" defaultValue= {this.props.item.dept} ref="emdDept"/>
 							</td>
 							<td> 
-								<input type="button" value="Edit" id={this.props.key} data-item={this.props.item} onClick={this.handleEdit} class="btn"/>
-								<input type="button" value="Delete" id="delete" data-item={this.props.item} onClick={this.handleDelete} class="btn" /> 
+								<input type="button" value="Edit" id="editBtn" data-item={this.props.item} onClick={this.handleEdit} class="btn"/>
+								<input type="button" value="Delete" id="deleteBtn" data-item={this.props.item} onClick={this.handleDelete} class="btn" /> 
 							</td>
 						</tr>
 							
@@ -153,7 +153,7 @@
 				},
 				  
 				 getInitialState: function() {
-					return {data: [],editMode : false};
+					return ({data: [], editing: 'start'});
 				},
 				  
 				loadCommentsFromServer: function() {
@@ -167,7 +167,7 @@
 					  }.bind(this),
 					  error: function(xhr, status, err) {
 						console.error(this.props.url, status, err.toString());
-					  }.bind(this)
+					  }
 					});
 				},
 				  
@@ -186,7 +186,7 @@
 					  error: function(xhr, status, err) {
 						this.setState({data: comments});
 						alert("Can not save data");
-					  }.bind(this)
+					  }
 					});
 				},
 				  
@@ -204,24 +204,56 @@
 					  error: function(xhr, status, err) {
 						this.setState({data: comments});
 						console.error(this.props.url, status, err.toString());
-					  }.bind(this)
+					  }
 					});  
 				},
-				render : function(){
-						return (
-					  	<div className="EmployeeForm">
-						<h1>Employee Registartion</h1>
-						<EmployeeAdd  onCommentSubmit={this.handleCommentSubmit} />
-						<h1>Employee List</h1>
-						<EmployeeEdit data={this.state.data} onDelete={this.handleDelete} onCommentSubmit={this.handleCommentSubmit} />
-					  </div>
+				addSate: function(){
+					this.setState({editing:'add'});
+				},
+				viewState: function(){
+					this.setState({editing:'edit'});
+				},
+				initialState:function(){
+					this.setState({editing:'start'});
+				},
+				renderInitialForm:function(){
+					return(
+						<div>
+							<h1>Employee Registration Process</h1>
+							<input type= "button" value="Add a new Employee"  onClick={this.addSate}/>
+							 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type= "button" value="View Employees"  onClick={this.viewState}/>
+						</div>
 					);
+				},
+				render : function(){
+							if(this.state.editing=='start'){
+									return this.renderInitialForm();
+							}else if (this.state.editing=='add'){
+								return(
+									<div>
+										<h1>Employee Registartion</h1>
+										<EmployeeAdd  onCommentSubmit={this.handleCommentSubmit} />
+										<input type="button" value="Go to Home Page" onClick={this.initialState}/>
+									</div>
+								);
+							}else{
+								return(
+									<div>
+										<h1>Employee List</h1>
+										<EmployeeEdit data={this.state.data} onDelete={this.handleDelete} onCommentSubmit={this.handleCommentSubmit} />
+										<input type="button" value="Go to Home Page" onClick={this.initialState}/>
+									</div>
+								);
+							}	
+							
+					
 				}
 
 
 			});
 
-			ReactDOM.render(<StartPage saveUrl="authUser/addUser" deleteUrl="authUser/delete.html"></StartPage>,document.getElementById("container"));
+			ReactDOM.render(<StartPage saveUrl="authUser/addUser" deleteUrl="authUser/delete"></StartPage>,document.getElementById("container"));
 		</script>
 		<div id="container"></div>
 	</body>
